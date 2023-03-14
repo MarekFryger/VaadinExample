@@ -10,22 +10,30 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import org.hibernate.envers.Audited;
+
 import java.util.Set;
 
 @Entity
 @Table(name = "application_user")
+@Audited
 public class User extends AbstractEntity {
-
+    @NotBlank
     private String username;
+    @NotBlank
     private String name;
     @JsonIgnore
     private String hashedPassword;
+    @NotBlank
+    @Email
+    private String email;
+    @Column(columnDefinition = "BOOLEAN DEFAULT true")
+    private boolean active;
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
-    @Lob
-    @Column(length = 1000000)
-    private byte[] profilePicture;
 
     public String getUsername() {
         return username;
@@ -51,11 +59,21 @@ public class User extends AbstractEntity {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
-    public byte[] getProfilePicture() {
-        return profilePicture;
-    }
-    public void setProfilePicture(byte[] profilePicture) {
-        this.profilePicture = profilePicture;
+
+
+    public String getEmail() {
+        return email;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 }

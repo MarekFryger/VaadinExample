@@ -1,34 +1,24 @@
 package com.fry.app.data.entity;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Version;
+import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 
 @MappedSuperclass
 public abstract class AbstractEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "idgenerator")
-    // The initial value is to account for data.sql demo data ids
-    @SequenceGenerator(name = "idgenerator", initialValue = 1000)
-    private Long id;
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "uuid2")
+    @Column(length = 36, nullable = false, updatable = false)
+    private String id;
 
-    @Version
-    private int version;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
-    }
-
-    public int getVersion() {
-        return version;
     }
 
     @Override

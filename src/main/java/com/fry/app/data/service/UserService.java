@@ -2,6 +2,8 @@ package com.fry.app.data.service;
 
 import com.fry.app.data.entity.User;
 import java.util.Optional;
+
+import com.fry.app.data.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -16,7 +18,7 @@ public class UserService {
         this.repository = repository;
     }
 
-    public Optional<User> get(Long id) {
+    public Optional<User> get(String id) {
         return repository.findById(id);
     }
 
@@ -24,7 +26,7 @@ public class UserService {
         return repository.save(entity);
     }
 
-    public void delete(Long id) {
+    public void delete(String id) {
         repository.deleteById(id);
     }
 

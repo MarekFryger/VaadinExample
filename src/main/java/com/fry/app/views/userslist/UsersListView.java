@@ -1,25 +1,19 @@
 package com.fry.app.views.userslist;
 
 import com.fry.app.data.Role;
-import com.fry.app.data.entity.SamplePerson;
 import com.fry.app.data.entity.User;
 import com.fry.app.data.service.UserService;
 import com.fry.app.views.MainLayout;
 import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.checkbox.CheckboxGroup;
-import com.vaadin.flow.component.combobox.MultiSelectComboBox;
-import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.Icon;
-import com.vaadin.flow.component.orderedlayout.FlexComponent;
-import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -184,18 +178,17 @@ public class UsersListView extends Div {
         grid.addColumn("username").setAutoWidth(true).setHeader("User login");
         grid.addColumn("name").setAutoWidth(true);
         grid.addColumn("roles").setAutoWidth(true);
-
         grid.setItems(query -> userService.list(
                 PageRequest.of(query.getPage(), query.getPageSize(), VaadinSpringDataHelpers.toSpringDataSort(query)),
                 filters).stream());
         grid.addThemeVariants(GridVariant.LUMO_NO_BORDER);
         grid.addClassNames(LumoUtility.Border.TOP, LumoUtility.BorderColor.CONTRAST_10);
-
+        grid.setSelectionMode(Grid.SelectionMode.SINGLE);
+        grid.addSelectionListener(selectionEvent -> {});
         return grid;
     }
 
     private void refreshGrid() {
         grid.getDataProvider().refreshAll();
     }
-
 }

@@ -1,7 +1,7 @@
 package com.fry.app.security;
 
 import com.fry.app.data.entity.User;
-import com.fry.app.data.service.UserRepository;
+import com.fry.app.data.repository.UserRepository;
 import com.vaadin.flow.spring.security.AuthenticationContext;
 import java.util.Optional;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,7 +1,7 @@
 package com.fry.app.security;
 
 import com.fry.app.data.entity.User;
-import com.fry.app.data.service.UserRepository;
+import com.fry.app.data.repository.UserRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.security.core.GrantedAuthority;
